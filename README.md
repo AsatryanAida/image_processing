@@ -1,2 +1,2 @@
 #image processing
-Consol app
+Console app
