@@ -2,6 +2,16 @@ import cv2
 import numpy as np
 import os
 from glob import glob
+from threading import Thread
+import keyboard
+
+#def exit_check():
+#    while True:
+#         if keyboard.is_pressed("p"):
+#              os.exit()
+#
+#thread1 = Thread(target=exit_check)
+#thread1.start()
 
 
 menu = {
@@ -46,12 +56,14 @@ def linear_filter(image):
     linear_image = cv2.filter2D(image, -1, kernel)
     cv2.imshow('filter2d', linear_image)
     cv2.waitKey()
+    Save_results(linear_image)
 
 
 def medianBlur(image):
     median_image = cv2.medianBlur(image, 5)
     cv2.imshow('medianBlur', median_image)
     cv2.waitKey()
+    Save_results(median_image)
 
 
 def blur_demo(image):
@@ -61,6 +73,7 @@ def blur_demo(image):
     blur_image = cv2.blur(image, (1, 15))
     cv2.imshow("blur", blur_image)
     cv2.waitKey()
+    Save_results(blur_image)
 
 
 def Laplacian(image):
@@ -68,6 +81,18 @@ def Laplacian(image):
     s = cv2.convertScaleAbs(s)
     cv2.imshow("Laplacian", s)
     cv2.waitKey()
+    Save_results(s)
+
+
+def Save_results(result_image):
+    action = input('Хотите ли Вы сохранить результат? (Y/N)\n').lower()
+    if action == 'y':
+        format = input('Выберите формат изображения (jpg, png) \n').lower()
+        name = input('Введите название файла\n')
+        filename = f'results\\{name}.{format}'
+        cv2.imwrite(filename, result_image)
+    else:
+        pass
 
 
 def main():
