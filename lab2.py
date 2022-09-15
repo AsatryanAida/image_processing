@@ -5,33 +5,19 @@ from glob import glob
 
 
 menu = {
-    1: "Apply_linear_filter",
-    2: "Apply_blur",
-    3: "Apply_medianBlur",
-    4: "Apply_GaussianBlur",
-    5: "Apply_erode",
-    6: "Apply_dilate",
-    7: "Apply_Sobel",
-    8: "Apply_Laplacian",
-    9: "Apply_Canny",
-    10: "Apply_calcHist",
-    11: "Apply_equalizeHist"
+    1: "Apply_medianBlur",
+    2: "Apply_linear_filter",
+    3: "Apply blur",
+    4: "Apply_Laplacian"
 }
 
 
 winNames = [
     "Initial image",
+    "medianBlur",
     "filter2d",
     "blur",
-    "medianBlur",
-    "GaussianBlur",
-    "erode",
-    "dilate",
-    "Sobel",
-    "Laplacian",
-    "Canny",
-    "calcHist",
-    "equalizeHist"
+    "Laplacian"
 ]
 
 
@@ -58,7 +44,29 @@ def linear_filter(image):
         [-0.1, 0.2, -0.1]
     ])
     linear_image = cv2.filter2D(image, -1, kernel)
-    cv2.imshow('linear_filter', linear_image)
+    cv2.imshow('filter2d', linear_image)
+    cv2.waitKey()
+
+
+def medianBlur(image):
+    median_image = cv2.medianBlur(image, 5)
+    cv2.imshow('medianBlur', median_image)
+    cv2.waitKey()
+
+
+def blur_demo(image):
+	 #Среднее размытие: случайный шум имеет хороший шумоподавляющий эффект
+	 #(1, 15) - размытие по вертикали, (15, 1) - размытие по горизонтали
+
+    blur_image = cv2.blur(image, (1, 15))
+    cv2.imshow("blur", blur_image)
+    cv2.waitKey()
+
+
+def Laplacian(image):
+    s = cv2.Laplacian(image, cv2.CV_16S, ksize=3)
+    s = cv2.convertScaleAbs(s)
+    cv2.imshow("Laplacian", s)
     cv2.waitKey()
 
 
@@ -71,9 +79,13 @@ def main():
         Menu_Num = int(input(f'{menu}' + '\n'))
 
     if Menu_Num == 1:
-        linear_filter(img)
+        medianBlur(img)
     elif Menu_Num == 2:
-        pass
+        linear_filter(img)
+    elif Menu_Num == 3:
+        blur_demo(img)
+    elif Menu_Num == 4:
+        Laplacian(img)
     main()
 
 main()
