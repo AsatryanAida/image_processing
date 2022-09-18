@@ -86,7 +86,7 @@ def draw_circle(img):
 
 
 def draw_ellipse(img):
-    img_ellipse = cv2.ellipse(img, (256, 256), (100, 50), 0, 0, 180, 255, -1)
+    img_ellipse = cv2.ellipse(img, (256, 256), (100, 50), 0, 0, 360, 255, -1)
     show_save("ellipse", img_ellipse)
 
 
